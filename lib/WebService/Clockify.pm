@@ -40,6 +40,26 @@ has apikey => (
     is => 'ro',
 );
 
+=head2 user_id
+
+The current user id.
+
+=cut
+
+has user_id => (
+    is => 'rw',
+);
+
+=head2 active_workspace
+
+The current user activeWorkspace.
+
+=cut
+
+has active_workspace => (
+    is => 'rw',
+);
+
 =head2 base
 
 The base URL.
@@ -66,7 +86,7 @@ has ua => (
 
 =head1 METHODS
 
-=head2 new()
+=head2 new
 
   $w = WebService::Clockify->new(%arguments);
 
@@ -99,6 +119,12 @@ sub user {
 
     my $data = _handle_response($tx);
 
+    $self->user_id($data->{id})
+        if $data->{id};
+
+    $self->active_workspace($data->{activeWorkspace})
+        if $data->{activeWorkspace};
+
     return $data;
 }
 
@@ -129,8 +155,6 @@ sub _handle_response {
 __END__
 
 =head1 SEE ALSO
-
-The tests in F<t/01-methods.t>
 
 L<https://clockify.me/developers-api>
 
