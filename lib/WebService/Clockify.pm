@@ -29,7 +29,7 @@ use Try::Tiny;
     description => 'Working on foo()',
     project_id  => '1234567890',
   );
-  sleep 900; # Do something for 15 minutes...
+  # Do something cool...
   $r = $w->stop_timer;
 
 =head1 DESCRIPTION
