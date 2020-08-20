@@ -15,9 +15,6 @@ my $ws = new_ok 'WebService::Clockify';
 
 can_ok $ws, 'user';
 
-my $result = try { $ws->user } catch { $_ };
-like $result, qr/No apikey provided/, 'apikey required';
-
 $ws = WebService::Clockify->new(apikey => '1234567890');
 isa_ok $ws, 'WebService::Clockify';
 
