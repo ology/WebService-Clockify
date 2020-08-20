@@ -9,6 +9,7 @@ use strictures 2;
 use namespace::clean;
 
 use Carp;
+use DateTime;
 use Mojo::UserAgent;
 use Mojo::JSON::MaybeXS;
 use Mojo::JSON qw(decode_json);
@@ -22,7 +23,14 @@ use Try::Tiny;
   my $w = WebService::Clockify->new(apikey => '1234567890abcdefghij');
 
   my $r = $w->user;
-  print Dumper $r;
+
+  $r = $w->start_timer(
+    billable    => 1,
+    description => 'Working on foo()',
+    project_id  => '1234567890',
+  );
+  sleep 900; # Do something for 15 minutes...
+  $r = $w->stop_timer;
 
 =head1 DESCRIPTION
 
@@ -111,8 +119,6 @@ Fetch the user results given the B<apikey> attribute.
 sub user {
     my ($self) = @_;
 
-    croak 'No apikey provided' unless $self->apikey;
-
     my $url = $self->base . '/user';
 
     my $tx = $self->ua->get($url, { 'X-Api-Key' => $self->apikey });
@@ -124,6 +130,65 @@ sub user {
 
     $self->active_workspace($data->{activeWorkspace})
         if $data->{activeWorkspace};
+
+    return $data;
+}
+
+=head2 start_timer
+
+  $r = $w->start_timer(
+    billable    => $billable,
+    description => $description,
+    project_id  => $project_id,
+  );
+
+Start a time entry for the given project on the currently active workspace.
+
+=cut
+
+sub start_timer {
+    my ($self, %args) = @_;
+
+    my $url = $self->base
+        . '/workspaces/' . $self->active_workspace
+        . '/user/' . $self->user_id
+        . '/time-entries';
+
+    my $payload = {
+        start       => DateTime->now->iso8601 . 'Z',
+        billable    => $args{billable} ? 'true' : 'false',
+        description => $args{description} || 'Testing ' . time(),
+        projectId   => $args{project_id},
+    };
+
+    my $tx = $self->ua->post($url, { 'X-Api-Key' => $self->apikey } => json => $payload);
+
+    my $data = _handle_response($tx);
+
+    return $data;
+}
+
+=head2 stop_timer
+
+  $r = $w->stop_timer;
+
+Stop the currently running time entry.
+
+=cut
+
+sub stop_timer {
+    my ($self) = @_;
+
+    my $url = $self->base
+        . '/workspaces/' . $self->active_workspace
+        . '/user/' . $self->user_id
+        . '/time-entries';
+
+    my $payload = { end => DateTime->now->iso8601 . 'Z' };
+
+    my $tx = $self->ua->patch($url, { 'X-Api-Key' => $self->apikey } => json => $payload);
+
+    my $data = _handle_response($tx);
 
     return $data;
 }
