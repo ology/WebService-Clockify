@@ -2,7 +2,7 @@ package WebService::Clockify;
 
 # ABSTRACT: Access to the Clockify API
 
-our $VERSION = '0.0407';
+our $VERSION = '0.0001';
 
 use Moo;
 use strictures 2;
