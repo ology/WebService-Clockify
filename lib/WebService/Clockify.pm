@@ -136,6 +136,28 @@ sub user {
     return $data;
 }
 
+=head2 projects
+
+  $r = $w->projects;
+
+Get the projects of the active workspace.
+
+=cut
+
+sub projects {
+    my ($self) = @_;
+
+    my $url = $self->base
+        . '/workspaces/' . $self->active_workspace
+        . '/projects';
+
+    my $tx = $self->ua->get($url, { 'X-Api-Key' => $self->apikey });
+
+    my $data = _handle_response($tx);
+
+    return $data;
+}
+
 =head2 start_timer
 
   $r = $w->start_timer(
@@ -189,28 +211,6 @@ sub stop_timer {
     my $payload = { end => DateTime->now->iso8601 . 'Z' };
 
     my $tx = $self->ua->patch($url, { 'X-Api-Key' => $self->apikey } => json => $payload);
-
-    my $data = _handle_response($tx);
-
-    return $data;
-}
-
-=head2 projects
-
-  $r = $w->projects;
-
-Get the projects of the active workspace.
-
-=cut
-
-sub projects {
-    my ($self) = @_;
-
-    my $url = $self->base
-        . '/workspaces/' . $self->active_workspace
-        . '/projects';
-
-    my $tx = $self->ua->get($url, { 'X-Api-Key' => $self->apikey });
 
     my $data = _handle_response($tx);
 
