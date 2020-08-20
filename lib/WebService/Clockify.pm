@@ -11,7 +11,7 @@ use namespace::clean;
 use Carp;
 use Mojo::UserAgent;
 use Mojo::JSON::MaybeXS;
-use Mojo::JSON qw( decode_json );
+use Mojo::JSON qw(decode_json);
 use Mojo::URL;
 use Try::Tiny;
 
@@ -19,7 +19,7 @@ use Try::Tiny;
 
   use WebService::Clockify;
 
-  my $w = WebService::Clockify->new(apikey => '1234567890abcdefghij' );
+  my $w = WebService::Clockify->new(apikey => '1234567890abcdefghij');
 
   my $r = $w->user;
   print Dumper $r;
@@ -95,7 +95,7 @@ sub user {
 
     my $url = $self->base . '/user';
 
-    my $tx = $self->ua->get( $url, { 'X-Api-Key' => $self->apikey } );
+    my $tx = $self->ua->get($url, { 'X-Api-Key' => $self->apikey });
 
     my $data = _handle_response($tx);
 
