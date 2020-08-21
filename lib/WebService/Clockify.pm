@@ -176,36 +176,29 @@ sub fetch {
 
 =head2 start_timer
 
-  $r = $w->start_timer(
+  $r = $w->start_timer({
     billable     => $billable,
     description  => $description,
-    project_id   => $project_id,
+    projectId    => $project_id,
     taskId       => $task_id,
     tagIds       => $tag_ids,
     customFields => $custom_fields,
-  );
+  });
 
 Start a time entry for the given project on the currently active workspace.
 
 =cut
 
 sub start_timer {
-    my ($self, %args) = @_;
+    my ($self, $payload) = @_;
 
     my $url = $self->base
         . '/workspaces/' . $self->active_workspace
         . '/user/' . $self->user_id
         . '/time-entries';
 
-    my $payload = {
-        start        => DateTime->now->iso8601 . 'Z',
-        billable     => $args{billable} ? 'true' : 'false',
-        description  => $args{description} || 'Testing ' . time(),
-        projectId    => $args{project_id},
-        taskId       => $args{task_id},
-        tagIds       => $args{tag_ids},
-        customFields => $args{custom_fields},
-    };
+    $payload->{start} = DateTime->now->iso8601 . 'Z';
+    $payload->{description} ||= 'Testing ' . time();
 
     my $tx = $self->ua->post($url, { 'X-Api-Key' => $self->apikey } => json => $payload);
 
