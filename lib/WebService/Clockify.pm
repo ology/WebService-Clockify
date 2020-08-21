@@ -10,9 +10,9 @@ use namespace::clean;
 
 use Carp;
 use DateTime;
-use Mojo::UserAgent;
 use Mojo::JSON qw(decode_json);
 use Mojo::URL;
+use Mojo::UserAgent;
 use Try::Tiny;
 
 =head1 SYNOPSIS
