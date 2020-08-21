@@ -262,11 +262,13 @@ __END__
 
 L<https://clockify.me/developers-api>
 
+L<DateTime>
+
+L<Try::Tiny>
+
 L<Moo>
 
 L<Mojo::JSON>
-
-L<Mojo::JSON::MaybeXS>
 
 L<Mojo::UserAgent>
 
