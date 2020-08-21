@@ -117,7 +117,8 @@ sub BUILD {
 
   $r = $w->user;
 
-Fetch the user results given the B<apikey> attribute.
+Fetch the user results given the B<apikey> attribute and set the
+B<user_id> and B<active_workspace> attributes.
 
 =cut
 
