@@ -139,6 +139,15 @@ sub user {
 
 Get the endpoint of the active workspace.
 
+Supported endpoints are:
+
+  clients
+  projects
+  tags
+  users
+  user-groups
+  custom-fields
+
 =cut
 
 sub fetch {
