@@ -22,7 +22,7 @@ else {
         billable    => 1,
         description => 'Working on foo()',
         project_id  => $id,
-    );
+    ) if $id;
 }
 use Data::Dumper::Compact 'ddc';
 warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc($r));
