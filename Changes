@@ -1,4 +1,5 @@
 Revision history for WebService-Clockify
 
 {{$NEXT}}
+    - Add essential time tracking methods.
     - Mint with Dist::Zilla.
