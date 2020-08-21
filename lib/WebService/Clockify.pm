@@ -174,6 +174,39 @@ sub fetch {
     return $data;
 }
 
+=head2 add
+
+  $r = $w->add(endpoint => $endpoint, payload => $payload);
+
+Add a new item of type B<endpoint> given the B<payload>.
+
+Supported endpoints are:
+
+  clients
+  projects
+  tags
+  time-entries
+  user-groups
+  users
+  shared-reports
+
+=cut
+
+sub add {
+    my ($self, %args) = @_;
+
+    my $url = $self->base
+        . '/workspaces/' . $self->active_workspace
+        . '/user/' . $self->user_id
+        . '/' . $args{endpoint};
+
+    my $tx = $self->ua->post($url, { 'X-Api-Key' => $self->apikey } => json => $args{payload});
+
+    my $data = _handle_response($tx);
+
+    return $data;
+}
+
 =head2 start_timer
 
   $r = $w->start_timer({
