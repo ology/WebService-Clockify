@@ -23,10 +23,10 @@ else {
     $r = $w->fetch(endpoint => 'tags');
     my $tag_id = $r->[0]{id};
 
-    $r = $w->start_timer(
-        billable   => 1,
-        project_id => $project_id,
-        $tag_id ? (tag_ids => [$tag_id]) : (),
-    ) if $project_id;
+    $r = $w->start_timer({
+        billable  => 1,
+        projectId => $project_id,
+        $tag_id ? (tagIds => [$tag_id]) : (),
+    }) if $project_id;
 }
 warn ddc($r); exit;
