@@ -4,7 +4,7 @@ use warnings;
 
 use WebService::Clockify;
 
-my $key  = shift || die "Usage: perl $0 apikey\n";
+my $key  = shift || die "Usage: perl $0 apikey stop\n";
 my $stop = shift || 0;
 
 my $w = WebService::Clockify->new(apikey => $key);
