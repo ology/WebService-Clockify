@@ -206,6 +206,39 @@ sub add {
     return $data;
 }
 
+=head2 update
+
+  $r = $w->update(endpoint => $endpoint, id => $id, payload => $payload);
+
+Update B<id> item of type B<endpoint> with the given B<payload>.
+
+Supported endpoints are:
+
+  clients
+  projects
+  tags
+  time-entries
+  user-groups
+  users
+  shared-reports
+
+=cut
+
+sub update {
+    my ($self, %args) = @_;
+
+    my $url = $self->base
+        . '/workspaces/' . $self->active_workspace
+        . '/' . $args{endpoint}
+        . '/' . $args{id};
+
+    my $tx = $self->ua->put($url, { 'X-Api-Key' => $self->apikey } => json => $args{payload});
+
+    my $data = _handle_response($tx);
+
+    return $data;
+}
+
 =head2 start_timer
 
   $r = $w->start_timer({
