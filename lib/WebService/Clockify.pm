@@ -4,16 +4,16 @@ package WebService::Clockify;
 
 our $VERSION = '0.0001';
 
-use Moo;
-use strictures 2;
-use namespace::clean;
-
 use Carp;
 use DateTime;
 use Mojo::JSON qw(decode_json);
 use Mojo::URL;
 use Mojo::UserAgent;
 use Try::Tiny;
+
+use Moo;
+use strictures 2;
+use namespace::clean;
 
 =head1 SYNOPSIS
 
