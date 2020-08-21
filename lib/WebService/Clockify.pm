@@ -133,20 +133,20 @@ sub user {
     return $data;
 }
 
-=head2 projects
+=head2 fetch
 
-  $r = $w->projects;
+  $r = $w->fetch(endpoint => 'tags');
 
-Get the projects of the active workspace.
+Get the endpoint of the active workspace.
 
 =cut
 
-sub projects {
-    my ($self) = @_;
+sub fetch {
+    my ($self, %args) = @_;
 
     my $url = $self->base
         . '/workspaces/' . $self->active_workspace
-        . '/projects';
+        . '/' . $args{endpoint};
 
     my $tx = $self->ua->get($url, { 'X-Api-Key' => $self->apikey });
 
@@ -158,9 +158,12 @@ sub projects {
 =head2 start_timer
 
   $r = $w->start_timer(
-    billable    => $billable,
-    description => $description,
-    project_id  => $project_id,
+    billable     => $billable,
+    description  => $description,
+    project_id   => $project_id,
+    taskId       => $task_id,
+    tagIds       => $tag_ids,
+    customFields => $custom_fields,
   );
 
 Start a time entry for the given project on the currently active workspace.
@@ -176,10 +179,13 @@ sub start_timer {
         . '/time-entries';
 
     my $payload = {
-        start       => DateTime->now->iso8601 . 'Z',
-        billable    => $args{billable} ? 'true' : 'false',
-        description => $args{description} || 'Testing ' . time(),
-        projectId   => $args{project_id},
+        start        => DateTime->now->iso8601 . 'Z',
+        billable     => $args{billable} ? 'true' : 'false',
+        description  => $args{description} || 'Testing ' . time(),
+        projectId    => $args{project_id},
+        taskId       => $args{task_id},
+        tagIds       => $args{tag_ids},
+        customFields => $args{custom_fields},
     };
 
     my $tx = $self->ua->post($url, { 'X-Api-Key' => $self->apikey } => json => $payload);
