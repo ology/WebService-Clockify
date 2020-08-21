@@ -138,9 +138,13 @@ sub user {
 
 =head2 fetch
 
-  $r = $w->fetch(endpoint => 'tags');
+  $r = $w->fetch(endpoint => $endpoint);
+  $r = $w->fetch(endpoint => 'projects', id => $id);
 
-Get the endpoint of the active workspace.
+Get the B<endpoint> of the active workspace.
+
+If an B<id> is provided for the C<projects> endpoint, append it to the
+URL.
 
 Supported endpoints are:
 
@@ -159,6 +163,9 @@ sub fetch {
     my $url = $self->base
         . '/workspaces/' . $self->active_workspace
         . '/' . $args{endpoint};
+
+    $url .= '/' . $args{id}
+        if $args{id};
 
     my $tx = $self->ua->get($url, { 'X-Api-Key' => $self->apikey });
 
