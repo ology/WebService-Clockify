@@ -17,13 +17,12 @@ if ($stop) {
     $r = $w->stop_timer;
 }
 else {
-    $r = $w->projects;
+    $r = $w->fetch(endpoint => 'projects');
     my $id = $r->[0]{id};
 
     $r = $w->start_timer(
-        billable    => 1,
-        description => 'Working on foo()',
-        project_id  => $id,
+        billable   => 1,
+        project_id => $id,
     ) if $id;
 }
 warn ddc($r); exit;
