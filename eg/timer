@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use WebService::Clockify;
+
+my $key  = shift || die "Usage: perl $0 apikey\n";
+my $stop = shift || 0;
+
+my $w = WebService::Clockify->new(apikey => $key);
+
+my $r = $w->user;
+
+if ($stop) {
+    $r = $w->stop_timer;
+}
+else {
+    $r = $w->projects;
+    my $id = $r->[0]{id};
+
+    $r = $w->start_timer(
+        billable    => 1,
+        description => 'Working on foo()',
+        project_id  => $id,
+    );
+}
+use Data::Dumper::Compact 'ddc';
+warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc($r));
