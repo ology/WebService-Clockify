@@ -38,6 +38,9 @@ use Try::Tiny;
 
 C<WebService::Clockify> provides access to the L<https://clockify.me/developers-api>.
 
+This module is in its infancy and much must be done to have it wrap
+every call and parameter in the Clockify API...
+
 =head1 ATTRIBUTES
 
 =head2 apikey
