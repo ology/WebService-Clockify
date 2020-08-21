@@ -197,7 +197,6 @@ sub add {
 
     my $url = $self->base
         . '/workspaces/' . $self->active_workspace
-        . '/user/' . $self->user_id
         . '/' . $args{endpoint};
 
     my $tx = $self->ua->post($url, { 'X-Api-Key' => $self->apikey } => json => $args{payload});
