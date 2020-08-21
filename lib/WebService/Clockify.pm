@@ -44,32 +44,35 @@ every call and parameter in the Clockify API...
 
 =head2 apikey
 
-Your authorized access key.
+Your required authorized access key.
 
 =cut
 
 has apikey => (
-    is => 'ro',
+    is       => 'ro',
+    required => 1,
 );
 
 =head2 user_id
 
-The current user id.
+The current user id.  A computed attribute.
 
 =cut
 
 has user_id => (
-    is => 'rw',
+    is       => 'rw',
+    init_arg => undef,
 );
 
 =head2 active_workspace
 
-The current user activeWorkspace.
+The current user activeWorkspace.  A computed attribute.
 
 =cut
 
 has active_workspace => (
-    is => 'rw',
+    is       => 'rw',
+    init_arg => undef,
 );
 
 =head2 base
