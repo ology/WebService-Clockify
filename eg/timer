@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+use Data::Dumper::Compact 'ddc';
 use WebService::Clockify;
 
 my $key  = shift || die "Usage: perl $0 apikey [stop]\n";
@@ -10,6 +11,7 @@ my $stop = shift || 0;
 my $w = WebService::Clockify->new(apikey => $key);
 
 my $r = $w->user;
+#warn ddc($r); exit;
 
 if ($stop) {
     $r = $w->stop_timer;
@@ -24,5 +26,4 @@ else {
         project_id  => $id,
     ) if $id;
 }
-use Data::Dumper::Compact 'ddc';
-warn(__PACKAGE__,' ',__LINE__," MARK: ",ddc($r));
+warn ddc($r); exit;
