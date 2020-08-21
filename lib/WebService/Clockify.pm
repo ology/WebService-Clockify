@@ -143,8 +143,8 @@ sub user {
 
 Get the B<endpoint> of the active workspace.
 
-If an B<id> is provided for the C<projects> endpoint, append it to the
-URL.
+If an B<id> is provided (for the C<projects> endpoint), append it to
+the URL.
 
 Supported endpoints are:
 
