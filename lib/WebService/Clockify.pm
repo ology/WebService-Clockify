@@ -11,7 +11,6 @@ use namespace::clean;
 use Carp;
 use DateTime;
 use Mojo::UserAgent;
-use Mojo::JSON::MaybeXS;
 use Mojo::JSON qw(decode_json);
 use Mojo::URL;
 use Try::Tiny;
