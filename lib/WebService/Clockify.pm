@@ -264,14 +264,14 @@ L<https://clockify.me/developers-api>
 
 L<DateTime>
 
-L<Try::Tiny>
-
-L<Moo>
-
 L<Mojo::JSON>
+
+L<Mojo::URL>
 
 L<Mojo::UserAgent>
 
-L<Mojo::URL>
+L<Moo>
+
+L<Try::Tiny>
 
 =cut
