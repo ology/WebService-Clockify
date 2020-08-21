@@ -18,11 +18,15 @@ if ($stop) {
 }
 else {
     $r = $w->fetch(endpoint => 'projects');
-    my $id = $r->[0]{id};
+    my $project_id = $r->[0]{id};
+
+    $r = $w->fetch(endpoint => 'tags');
+    my $tag_id = $r->[0]{id};
 
     $r = $w->start_timer(
         billable   => 1,
-        project_id => $id,
-    ) if $id;
+        project_id => $project_id,
+        $tag_id ? (tag_ids => [$tag_id]) : (),
+    ) if $project_id;
 }
 warn ddc($r); exit;
