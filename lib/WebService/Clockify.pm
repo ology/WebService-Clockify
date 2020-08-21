@@ -23,7 +23,7 @@ use namespace::clean;
 
   my $r = $w->user;
 
-  $r = $w->projects;
+  $r = $w->fetch('projects');
 
   $r = $w->start_timer(
     billable    => 1,
