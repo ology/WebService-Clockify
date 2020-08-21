@@ -20,7 +20,7 @@ use Try::Tiny;
 
   use WebService::Clockify;
 
-  my $w = WebService::Clockify->new(apikey => '1234567890abcdefghij');
+  my $w = WebService::Clockify->new(apikey => '1234567890abcdef');
 
   my $r = $w->user;
 
