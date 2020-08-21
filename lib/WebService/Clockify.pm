@@ -105,13 +105,7 @@ has ua => (
 
 Create a new C<WebService::Clockify> object.
 
-=for Pod::Coverage BUILD
-
 =cut
-
-sub BUILD {
-    my ($self, $args) = @_;
-}
 
 =head2 user
 
