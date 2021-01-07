@@ -11,8 +11,7 @@ use Try::Tiny qw(try catch);
 
 use_ok 'WebService::Clockify';
 
-my $ws = WebService::Clockify->new(apikey => '1234567890');
-isa_ok $ws, 'WebService::Clockify';
+my $ws = new_ok 'WebService::Clockify' => [ apikey => '1234567890' ];
 
 can_ok $ws, 'user';
 
