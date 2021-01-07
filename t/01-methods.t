@@ -11,12 +11,10 @@ use Try::Tiny qw(try catch);
 
 use_ok 'WebService::Clockify';
 
-my $ws = new_ok 'WebService::Clockify';
+my $ws = WebService::Clockify->new(apikey => '1234567890');
+isa_ok $ws, 'WebService::Clockify';
 
 can_ok $ws, 'user';
-
-$ws = WebService::Clockify->new(apikey => '1234567890');
-isa_ok $ws, 'WebService::Clockify';
 
 my $mock = Mojolicious->new;
 $mock->log->level('fatal'); # only log fatal errors to keep the server quiet
